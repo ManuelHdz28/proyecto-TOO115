@@ -1,0 +1,187 @@
+<Window x:Class="TOO_SanBenito.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TOO_SanBenito"
+        mc:Ignorable="d"
+     Title="San Benito - Sistema de Ventas"
+      Height="768"
+        Width="1366"
+      WindowState="Maximized"
+  WindowStartupLocation="CenterScreen">
+
+	<Window.Resources>
+		<SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB"/>
+		<SolidColorBrush x:Key="SecondaryBrush" Color="#1E293B"/>
+		<SolidColorBrush x:Key="AccentBrush" Color="#3B82F6"/>
+		<SolidColorBrush x:Key="BackgroundBrush" Color="#F8FAFC"/>
+		<SolidColorBrush x:Key="SidebarBrush" Color="#1E293B"/>
+
+		<Style x:Key="MenuButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Padding" Value="20,15"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{TemplateBinding Background}"
+			   Padding="{TemplateBinding Padding}">
+							<ContentPresenter/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#334155"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Border Grid.Column="0"
+     Background="{StaticResource SidebarBrush}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Border Grid.Row="0"
+				  Background="#0F172A"
+				Padding="20">
+					<StackPanel>
+						<TextBlock Text="Farmacia San Benito"
+						  FontSize="22"
+						   FontWeight="Bold"
+						 Foreground="White"
+						 HorizontalAlignment="Center"/>
+						<TextBlock Text="Sistema de Ventas"
+						FontSize="12"
+							Foreground="#94A3B8"
+					   HorizontalAlignment="Center"
+				   Margin="0,4,0,0"/>
+					</StackPanel>
+				</Border>
+
+				<StackPanel Grid.Row="1" Margin="0,20,0,0">
+					<Button x:Name="BtnDashboard"
+			   Style="{StaticResource MenuButtonStyle}"
+						Click="BtnDashboard_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#128202;" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock VerticalAlignment="Center" Text="Inicio" Cursor=""/>
+						</StackPanel>
+					</Button>
+
+					<Button x:Name="BtnProductos"
+			 Style="{StaticResource MenuButtonStyle}"
+				Click="BtnProductos_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#128101;" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock VerticalAlignment="Center" Text="Productos"/>
+						</StackPanel>
+					</Button>
+
+					<Button x:Name="BtnReportes"
+				   Style="{StaticResource MenuButtonStyle}"
+						 Click="BtnReportes_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#128200;" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock Text="Reportes" VerticalAlignment="Center"/>
+						</StackPanel>
+					</Button>
+
+					<Button x:Name="BtnConfiguracion"
+			   Style="{StaticResource MenuButtonStyle}"
+	   Click="BtnConfiguracion_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#9881;" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock Text="Configuracion" VerticalAlignment="Center"/>
+						</StackPanel>
+					</Button>
+
+					<Separator Margin="10,20" Background="#334155"/>
+					<Button x:Name="BtnCerrarSesion"
+             Style="{StaticResource MenuButtonStyle}"
+          Click="BtnCerrarSesion_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="🚪" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock Text="Cerrar Sesion" VerticalAlignment="Center"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+
+				<Border Grid.Row="2"
+				   Background="#0F172A"
+			Padding="20">
+					<StackPanel>
+						<TextBlock x:Name="TxtUsuarioActual"
+					  Text="Usuario: Admin"
+							Foreground="#94A3B8"
+					FontSize="11"/>
+						<TextBlock x:Name="TxtFechaHora"
+					  Text=""
+						   Foreground="#64748B"
+							   FontSize="10"
+							Margin="0,4,0,0"/>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</Border>
+
+		<Grid Grid.Column="1" Background="{StaticResource BackgroundBrush}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Border Grid.Row="0"
+			Background="White"
+			BorderBrush="#E2E8F0"
+		   BorderThickness="0,0,0,1"
+	 Padding="20,15">
+				<Grid>
+					<TextBlock x:Name="TxtPageTitle"
+					 Text="INICIO"
+						 FontSize="20"
+				 FontWeight="SemiBold"
+					   VerticalAlignment="Center"/>
+
+					<StackPanel Orientation="Horizontal"
+				   HorizontalAlignment="Right">
+						<TextBlock Text="&#128276;"
+							 FontSize="20"
+								Margin="0,0,20,0"
+							Cursor="Hand"
+					  ToolTip="Notificaciones"/>
+						<Border Background="#F1F5F9"
+					CornerRadius="20"
+				 Padding="12,6">
+							<TextBlock x:Name="TxtUserName"
+								  Text="Admin"
+						FontWeight="SemiBold"/>
+						</Border>
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<Frame x:Name="MainFrame"
+            Grid.Row="1"
+         NavigationUIVisibility="Hidden"
+       Margin="20,10,20,20"/>
+		</Grid>
+	</Grid>
+</Window>
