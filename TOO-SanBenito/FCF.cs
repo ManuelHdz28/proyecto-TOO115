@@ -62,12 +62,10 @@ public class Class1
         [Required(ErrorMessage = "Apartado:Identificacion,El campo tipoMoneda es requerido para este tipo de documento")]
         [StringLength(3, ErrorMessage = "Apartado:Identificacion,El campo tipoMoneda sobrepasa el tamaño requerido para este tipo de documento")]
         public string tipoMoneda { get; set; }
-        //public List<CCFIdentificacionModel> identificacion { get; set; }
+        
     }
     public class FCFDocumentoRelacionadoModel
     {
-        //[Required(ErrorMessage = "El campo tipoDte es requerido para este tipo de documento")]
-        //[StringLength(2, ErrorMessage = "El tamaño del campo tipoDte no debe superar 2 caracteres")]
         public string tipoDte { get; set; }
         [Required(ErrorMessage = "Apartado:Documento relacionado,El campo tipoDocumento es requerido para este tipo de documento")]
         public string tipoDocumento { get; set; }
@@ -140,8 +138,6 @@ public class Class1
        ErrorMessage = "Apartado:Receptor:El campo  nrc no cumple con el formato necesario")]
         [StringLength(8, ErrorMessage = "Apartado:Receptor:El campo  NRC no cumple con la longitud esperada", MinimumLength = 2)]
         public string nrc { get; set; }
-        //[StringLength(9)]
-        //public string numFacturador { get; set; }
         [Required(ErrorMessage = "Apartado:Receptor:El campo  nombre es requerido para este tipo de documento")]
         [StringLength(250, ErrorMessage = "Apartado:Receptor:El campo  nombre no cumple con la longitud esperada", MinimumLength = 1)]
         public string nombre { get; set; }
@@ -155,12 +151,8 @@ public class Class1
         [Required(ErrorMessage = "Apartado:Receptor:El campo  descActividad es requerido para este tipo de documento")]
         [StringLength(150, ErrorMessage = "Apartado:Receptor:El campo  descActividad no cumple con la longitud esperada", MinimumLength = 1)]
         public string descActividad { get; set; }
-        //public FCFActividadModel actividad { get; set; }
-        //[StringLength(150, ErrorMessage = "Apartado:Receptor:El campo  nombreComercial no cumple con la longitud esperada", MinimumLength = 1)]
-        //public string nombreComercial { get; set; }
         [Required(ErrorMessage = "En receptor,el apartado direccion es requerido para este tipo de documento")]
         public FCFDireccionModel direccion { get; set; }
-        //public int categoria { get; set; }
         [StringLength(30, ErrorMessage = "Apartado:Receptor:El campo  telefono no cumple con la longitud esperada", MinimumLength = 8)]
         public string telefono { get; set; }
         [Required(ErrorMessage = "Apartado:Receptor:El campo  correo es requerido para este tipo de documento")]
@@ -169,9 +161,6 @@ public class Class1
         [Required(ErrorMessage = "Apartado:Receptor:El campo  bienTitulo es requerido para este tipo de documento")]
         [StringLength(2, ErrorMessage = "Apartado:Receptor:El campo  bienTitulo no correo con la longitud esperada")]
         public string bienTitulo { get; set; }
-        //[StringLength(10)]
-        //public string fecSujExcl { get; set; }
-        //public string numExencion { get; set; }
         public FCFReceptorModel() { }
 
     }
@@ -260,7 +249,6 @@ public class Class1
         [Required(ErrorMessage = "Apartado:Cuerpo documento,el campo ventaGravada es requerido")]
         public double ventaGravada { get; set; }
         public List<string> tributos { get; set; }
-        //public List<CCFTributosModel> tributos { get; set; }
         [Required(ErrorMessage = "Apartado:Cuerpo documento,el campo psv es requerido")]
         public double psv { get; set; }
         [Required(ErrorMessage = "Apartado:Cuerpo documento,el campo noGravado es requerido")]
@@ -290,10 +278,8 @@ public class Class1
         [Required(ErrorMessage = "Apartado:Resumen,el campo totalDescu es requerido")]
         public double totalDescu { get; set; }
         public List<FCFTributosModel> tributos { get; set; }
-        //public double descuento { get; set; }
         [Required(ErrorMessage = "Apartado:Resumen,el campo subTotal es requerido")]
         public double subTotal { get; set; }
-        //public double totalIva { get; set; }
         [Required(ErrorMessage = "Apartado:Resumen,el campo ivaPerci1 es requerido")]
         public double ivaPerci1 { get; set; }
         [Required(ErrorMessage = "Apartado:Resumen,el campo ivaRete1 es requerido")]
@@ -318,14 +304,6 @@ public class Class1
         public List<FCFPagosModel> pagos { get; set; }
         [StringLength(100, ErrorMessage = "Apartado:Resumen,el campo numPagoElectronico sobrepasa la longitud")]
         public string numPagoElectronico { get; set; }
-        //public List<CCFImpuestos> Impuestos { get; set; }
-        //public double fovial { get; set; }
-        //public double cotrans { get; set; }
-        //public double turismo { get; set; }
-        //public double adValorem { get; set; }
-        //public double totalDescItem { get; set; }
-        //[StringLength(100)]
-        //public string numPagoElectronico { get; set; }
     }
 
     public class FCFPagosModel
@@ -360,8 +338,6 @@ public class Class1
 
     public class FCFExtensionModel
     {
-        //[StringLength(9)]
-        //public string totalItems { get; set; }
         [StringLength(100, ErrorMessage = "Apartado:Extencion, El campo nombEntrega  sobrepasa el tamaño estipulado", MinimumLength = 1)]
         public string nombEntrega { get; set; }
         [StringLength(25, ErrorMessage = "Apartado:Extencion, El campo  docuEntrega  sobrepasa el tamaño estipulado", MinimumLength = 1)]
@@ -374,12 +350,6 @@ public class Class1
         public string observaciones { get; set; }
         [StringLength(10, ErrorMessage = "Apartado:Extencion, El campo  placaVehiculo  sobrepasa el tamaño estipulado", MinimumLength = 2)]
         public string placaVehiculo { get; set; }
-        //[StringLength(15)]
-        //public string codEmpleado { get; set; }
-        //[StringLength(50)]
-        //public string autoFitoSanitaria { get; set; }
-        //[StringLength(11)]
-        //public string totalDescu { get; set; }
     }
 
     public class FCFApendiceModel
