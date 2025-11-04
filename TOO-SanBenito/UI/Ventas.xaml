@@ -1,0 +1,227 @@
+<Page x:Class="TOO_SanBenito.UI.Ventas"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Ventas">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1E293B"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#EF4444"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#10B981"/>
+    </Page.Resources>
+
+    <Grid Background="#F8FAFC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Panel izquierdo - Selección de productos -->
+        <Border Grid.Column="0" Background="White" Margin="20" CornerRadius="8" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Título -->
+                <TextBlock Grid.Row="0"
+                           Text="Seleccionar Productos"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,15"/>
+
+                <!-- Búsqueda y filtros -->
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="TxtBuscarProducto"
+                             Grid.Column="0"
+                             Padding="10"
+                             TextChanged="TxtBuscarProducto_TextChanged"/>
+                    <TextBlock Text="🔍 Buscar producto..."
+                               Grid.Column="0"
+                               IsHitTestVisible="False"
+                               VerticalAlignment="Center"
+                               Margin="12,0,0,0"
+                               Foreground="#94A3B8">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=TxtBuscarProducto}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <ComboBox x:Name="CmbCategoriaFiltro"
+                              Grid.Column="1"
+                              Width="180"
+                              Height="35"
+                              Margin="10,0,0,0"
+                              SelectionChanged="CmbCategoriaFiltro_SelectionChanged"/>
+                </Grid>
+
+                <!-- Lista de productos -->
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ListaProductos">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#F8FAFC"
+                                        CornerRadius="6"
+                                        Padding="15"
+                                        Margin="0,0,0,10"
+                                        BorderBrush="#E2E8F0"
+                                        BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding Nombre}"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="14"/>
+                                            <TextBlock Text="{Binding CategoriaNombre}"
+                                                       FontSize="11"
+                                                       Foreground="#64748B"
+                                                       Margin="0,2,0,0"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                                <TextBlock Text="{Binding Precio, StringFormat=C2}"
+                                                           FontWeight="Bold"
+                                                           FontSize="13"
+                                                           Foreground="{StaticResource PrimaryBrush}"/>
+                                                <TextBlock Text=" • "
+                                                           Margin="5,0"
+                                                           Foreground="#94A3B8"/>
+                                                <TextBlock Foreground="#64748B" FontSize="12">
+                                                    <Run Text="Stock: "/>
+                                                    <Run Text="{Binding Stock}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <Button Grid.Column="1"
+                                                Content="+ Agregar"
+                                                Background="{StaticResource PrimaryBrush}"
+                                                Foreground="White"
+                                                Padding="15,8"
+                                                BorderThickness="0"
+                                                Cursor="Hand"
+                                                Click="BtnAgregarProducto_Click"
+                                                Tag="{Binding Id}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Panel derecho - Carrito -->
+        <Border Grid.Column="1" Background="White" Margin="20,20,20,20" CornerRadius="8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Título del carrito -->
+                <Border Grid.Row="0"
+                        Background="{StaticResource PrimaryBrush}"
+                        CornerRadius="8,8,0,0"
+                        Padding="20,15">
+                    <StackPanel>
+                        <TextBlock Text="🛒 Carrito de Venta"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock x:Name="TxtItemsCarrito"
+                                   Text="0 items"
+                                   FontSize="12"
+                                   Foreground="#E0E7FF"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Items del carrito -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="15">
+                    <StackPanel x:Name="PanelCarrito">
+                        <TextBlock x:Name="TxtCarritoVacio"
+                                   Text="Carrito vacío"
+                                   FontSize="13"
+                                   Foreground="#94A3B8"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="0,40,0,0"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Totales -->
+                <Border Grid.Row="2"
+                        Background="#F8FAFC"
+                        Padding="20,15"
+                        BorderBrush="#E2E8F0"
+                        BorderThickness="0,1,0,0">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Subtotal:" Foreground="#64748B"/>
+                            <TextBlock x:Name="TxtSubtotal"
+                                       Text="$0.00"
+                                       HorizontalAlignment="Right"
+                                       FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock Text="Total:" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock x:Name="TxtTotal"
+                                       Text="$0.00"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource PrimaryBrush}"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Botones de acción -->
+                <StackPanel Grid.Row="3" Margin="20">
+                    <Button x:Name="BtnCompletarVenta"
+                            Content="✓ Completar Venta"
+                            Background="{StaticResource SuccessBrush}"
+                            Foreground="White"
+                            Padding="0,12"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="BtnCompletarVenta_Click"/>
+                    <Button x:Name="BtnLimpiarCarrito"
+                            Content="Limpiar Carrito"
+                            Background="#94A3B8"
+                            Foreground="White"
+                            Padding="0,10"
+                            Margin="0,8,0,0"
+                            FontSize="13"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="BtnLimpiarCarrito_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

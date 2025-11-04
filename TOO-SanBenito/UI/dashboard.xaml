@@ -1,0 +1,178 @@
+﻿<Page x:Class="TOO_SanBenito.UI.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TOO_SanBenito.UI"
+      mc:Ignorable="d" 
+      d:DesignHeight="776.2" d:DesignWidth="1175"
+      Title="Dashboard">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="CardBrush" Color="#F2F2F2"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#1445A6"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#14488C"/>
+        <SolidColorBrush x:Key="ThirdBrush" Color="#05C7F2"/>
+        <SolidColorBrush x:Key="FourthBrush" Color="#94BF36"/>
+
+        <!--Colores para las aletas-->
+        <SolidColorBrush x:Key="SuccessBrush" Color="#10B981"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#F59E0B"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#EF4444"/>
+
+        <!-- Estilo para tarjetas -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBrush}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,15,15"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" Opacity="0.1" ShadowDepth="2" BlurRadius="10"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0" Margin="0">
+        <StackPanel Margin="0">
+            <!-- Mensaje de bienvenida PRIMERO -->
+       <Border Style="{StaticResource CardStyle}" Margin="0,0,15,15">
+       <StackPanel>
+   <TextBlock Text="&#161;Bienvenido al Sistema San Benito!" 
+  FontSize="20" 
+    FontWeight="Bold"
+         Margin="0,0,0,10"/>
+    <TextBlock Text="Este es tu panel de control principal. Desde aqui puedes acceder a todas las funcionalidades del sistema."
+           TextWrapping="Wrap"
+          Foreground="Gray"
+             FontSize="14"/>
+                </StackPanel>
+         </Border>
+
+            <!-- Tarjetas de estadisticas -->
+ <Grid Margin="0,0,0,20">
+   <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="*"/>
+     <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    <ColumnDefinition Width="*"/>
+</Grid.ColumnDefinitions>
+
+   <!-- Tarjeta 1: Ventas Hoy -->
+ <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+     <StackPanel>
+     <TextBlock Text="&#128176;" FontSize="32" Margin="0,0,0,10"/>
+           <TextBlock Text="Ventas del Día"
+       FontSize="14"
+        Foreground="Gray"/>
+               <TextBlock x:Name="TxtVentasHoy"
+                          Text="$0.00"
+    FontSize="28"
+      FontWeight="Bold"
+            Margin="0,5,0,0"/>
+     <TextBlock Text="Ventas de hoy"
+   FontSize="11"
+     Foreground="{StaticResource SuccessBrush}"
+ Margin="0,5,0,0"/>
+       </StackPanel>
+           </Border>
+
+              <!-- Tarjeta 2: Ventas Semanales -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+           <StackPanel>
+             <TextBlock Text="&#128200;" FontSize="32" Margin="0,0,0,10"/>
+      <TextBlock Text="Ventas Semanales"
+      FontSize="14"
+     Foreground="Gray"/>
+     <TextBlock x:Name="TxtVentasSemanales"
+                Text="$0.00"
+      FontSize="28"
+      FontWeight="Bold"
+           Margin="0,5,0,0"/>
+      <TextBlock Text="Últimos 7 días"
+ FontSize="11"
+      Foreground="{StaticResource SuccessBrush}"
+  Margin="0,5,0,0"/>
+      </StackPanel>
+  </Border>
+
+       <!-- Tarjeta 3: Total Productos -->
+           <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+            <StackPanel>
+        <TextBlock Text="&#128230;" FontSize="32" Margin="0,0,0,10"/>
+     <TextBlock Text="Total Productos"
+          FontSize="14"
+    Foreground="Gray"/>
+         <TextBlock x:Name="TxtTotalProductos"
+                    Text="0"
+         FontSize="28"
+    FontWeight="Bold"
+   Margin="0,5,0,0"/>
+ <TextBlock Text="En inventario"
+        FontSize="11"
+          Foreground="{StaticResource SuccessBrush}"
+    Margin="0,5,0,0"/>
+        </StackPanel>
+             </Border>
+
+ <!-- Tarjeta 4: Stock Bajo -->
+       <Border Grid.Column="3" Style="{StaticResource CardStyle}">
+   <StackPanel>
+    <TextBlock Text="&#9888;" FontSize="32" Margin="0,0,0,10"/>
+           <TextBlock Text="Stock Bajo"
+         FontSize="14"
+ Foreground="Gray"/>
+<TextBlock x:Name="TxtStockBajo"
+           Text="0"
+    FontSize="28"
+ FontWeight="Bold"
+      Margin="0,5,0,0"/>
+   <TextBlock x:Name="TxtStockBajoDesc"
+              Text="Todo en orden"
+      FontSize="11"
+    Foreground="{StaticResource SuccessBrush}"
+      Margin="0,5,0,0"/>
+            </StackPanel>
+    </Border>
+</Grid>
+
+    <!-- Seccion de graficos/contenido adicional -->
+     <Grid>
+        <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="2*"/>
+         <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+              <!-- Ventas por Categoría -->
+     <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+            <StackPanel>
+     <TextBlock Text="Ventas por Tipo de Medicamento"
+      FontSize="18"
+      FontWeight="SemiBold"
+    Margin="0,0,0,20"/>
+     <TextBlock x:Name="TxtVentasCategoria"
+                Text="Cargando..."
+                FontSize="14"
+                TextWrapping="Wrap"
+                LineHeight="22"/>
+        </StackPanel>
+       </Border>
+
+            <!-- Actividad reciente -->
+    <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+      <StackPanel>
+         <TextBlock Text="Actividad Reciente"
+          FontSize="16"
+               FontWeight="SemiBold"
+    Margin="0,0,0,15"/>
+
+         <StackPanel x:Name="PanelActividad">
+             <!-- Se llena dinámicamente desde el código -->
+         </StackPanel>
+     </StackPanel>
+  </Border>
+ </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
