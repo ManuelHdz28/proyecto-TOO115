@@ -59,74 +59,79 @@
     <ColumnDefinition Width="*"/>
 </Grid.ColumnDefinitions>
 
-   <!-- Tarjeta 1: Total Usuarios -->
+   <!-- Tarjeta 1: Ventas Hoy -->
  <Border Grid.Column="0" Style="{StaticResource CardStyle}">
      <StackPanel>
-     <TextBlock Text="&#128101;" FontSize="32" Margin="0,0,0,10"/>
-           <TextBlock Text="Total Usuarios" 
-       FontSize="14" 
+     <TextBlock Text="&#128176;" FontSize="32" Margin="0,0,0,10"/>
+           <TextBlock Text="Ventas del Día"
+       FontSize="14"
         Foreground="Gray"/>
-               <TextBlock Text="1,234" 
-    FontSize="28" 
-      FontWeight="Bold" 
+               <TextBlock x:Name="TxtVentasHoy"
+                          Text="$0.00"
+    FontSize="28"
+      FontWeight="Bold"
             Margin="0,5,0,0"/>
-     <TextBlock Text="&#8593; 12% vs mes anterior" 
-   FontSize="11" 
-     Foreground="{StaticResource SuccessBrush}" 
+     <TextBlock Text="Ventas de hoy"
+   FontSize="11"
+     Foreground="{StaticResource SuccessBrush}"
  Margin="0,5,0,0"/>
        </StackPanel>
            </Border>
 
-              <!-- Tarjeta 2: Ventas -->
+              <!-- Tarjeta 2: Ventas Semanales -->
                 <Border Grid.Column="1" Style="{StaticResource CardStyle}">
            <StackPanel>
-             <TextBlock Text="&#128176;" FontSize="32" Margin="0,0,0,10"/>
-      <TextBlock Text="Ventas del Mes" 
-      FontSize="14" 
+             <TextBlock Text="&#128200;" FontSize="32" Margin="0,0,0,10"/>
+      <TextBlock Text="Ventas Semanales"
+      FontSize="14"
      Foreground="Gray"/>
-     <TextBlock Text="$45,678" 
-      FontSize="28" 
-      FontWeight="Bold" 
+     <TextBlock x:Name="TxtVentasSemanales"
+                Text="$0.00"
+      FontSize="28"
+      FontWeight="Bold"
            Margin="0,5,0,0"/>
-      <TextBlock Text="&#8593; 8% vs mes anterior" 
- FontSize="11" 
-      Foreground="{StaticResource SuccessBrush}" 
+      <TextBlock Text="Últimos 7 días"
+ FontSize="11"
+      Foreground="{StaticResource SuccessBrush}"
   Margin="0,5,0,0"/>
       </StackPanel>
   </Border>
 
-       <!-- Tarjeta 3: Pedidos -->
+       <!-- Tarjeta 3: Total Productos -->
            <Border Grid.Column="2" Style="{StaticResource CardStyle}">
             <StackPanel>
         <TextBlock Text="&#128230;" FontSize="32" Margin="0,0,0,10"/>
-     <TextBlock Text="Pedidos Activos" 
-          FontSize="14" 
+     <TextBlock Text="Total Productos"
+          FontSize="14"
     Foreground="Gray"/>
-         <TextBlock Text="89" 
-         FontSize="28" 
-    FontWeight="Bold" 
+         <TextBlock x:Name="TxtTotalProductos"
+                    Text="0"
+         FontSize="28"
+    FontWeight="Bold"
    Margin="0,5,0,0"/>
- <TextBlock Text="15 pendientes" 
-        FontSize="11" 
-          Foreground="{StaticResource WarningBrush}" 
+ <TextBlock Text="En inventario"
+        FontSize="11"
+          Foreground="{StaticResource SuccessBrush}"
     Margin="0,5,0,0"/>
         </StackPanel>
              </Border>
 
- <!-- Tarjeta 4: Alertas -->
+ <!-- Tarjeta 4: Stock Bajo -->
        <Border Grid.Column="3" Style="{StaticResource CardStyle}">
    <StackPanel>
     <TextBlock Text="&#9888;" FontSize="32" Margin="0,0,0,10"/>
-           <TextBlock Text="Alertas" 
-         FontSize="14" 
+           <TextBlock Text="Stock Bajo"
+         FontSize="14"
  Foreground="Gray"/>
-<TextBlock Text="3" 
-    FontSize="28" 
- FontWeight="Bold" 
+<TextBlock x:Name="TxtStockBajo"
+           Text="0"
+    FontSize="28"
+ FontWeight="Bold"
       Margin="0,5,0,0"/>
-   <TextBlock Text="Requieren atencion" 
-      FontSize="11" 
-    Foreground="{StaticResource DangerBrush}" 
+   <TextBlock x:Name="TxtStockBajoDesc"
+              Text="Todo en orden"
+      FontSize="11"
+    Foreground="{StaticResource SuccessBrush}"
       Margin="0,5,0,0"/>
             </StackPanel>
     </Border>
@@ -139,64 +144,32 @@
          <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-              <!-- Grafico principal -->
+              <!-- Ventas por Categoría -->
      <Border Grid.Column="0" Style="{StaticResource CardStyle}">
             <StackPanel>
-     <TextBlock Text="Ventas Mensuales" 
-      FontSize="18" 
-      FontWeight="SemiBold" 
+     <TextBlock Text="Ventas por Tipo de Medicamento"
+      FontSize="18"
+      FontWeight="SemiBold"
     Margin="0,0,0,20"/>
-     <Rectangle Height="200" 
-       Fill="#F1F5F9" 
-      RadiusX="4" 
-RadiusY="4"/>
-      <TextBlock Text="&#128202; Grafico en construccion" 
-             HorizontalAlignment="Center" 
-         VerticalAlignment="Center" 
-   Margin="0,-120,0,0" 
-         Foreground="Gray"/>
+     <TextBlock x:Name="TxtVentasCategoria"
+                Text="Cargando..."
+                FontSize="14"
+                TextWrapping="Wrap"
+                LineHeight="22"/>
         </StackPanel>
        </Border>
 
             <!-- Actividad reciente -->
     <Border Grid.Column="1" Style="{StaticResource CardStyle}">
       <StackPanel>
-         <TextBlock Text="Actividad Reciente" 
-          FontSize="16" 
-               FontWeight="SemiBold" 
+         <TextBlock Text="Actividad Reciente"
+          FontSize="16"
+               FontWeight="SemiBold"
     Margin="0,0,0,15"/>
 
- <StackPanel Margin="0,0,0,10">
-     <TextBlock Text="&#8226; Nuevo usuario registrado" 
-        FontSize="12"/>
-             <TextBlock Text="  Hace 5 minutos" 
-       FontSize="10" 
-   Foreground="Gray"/>
-          </StackPanel>
-
-         <StackPanel Margin="0,0,0,10">
-           <TextBlock Text="&#8226; Pedido #1234 completado" 
-           FontSize="12"/>
-<TextBlock Text="  Hace 15 minutos" 
-        FontSize="10" 
-     Foreground="Gray"/>
-       </StackPanel>
-
-   <StackPanel Margin="0,0,0,10">
-  <TextBlock Text="&#8226; Inventario actualizado" 
- FontSize="12"/>
-  <TextBlock Text="  Hace 1 hora" 
-  FontSize="10" 
-            Foreground="Gray"/>
-        </StackPanel>
-
- <StackPanel>
-  <TextBlock Text="&#8226; Sistema backup exitoso" 
-            FontSize="12"/>
-      <TextBlock Text="  Hace 2 horas" 
-      FontSize="10" 
-       Foreground="Gray"/>
-    </StackPanel>
+         <StackPanel x:Name="PanelActividad">
+             <!-- Se llena dinámicamente desde el código -->
+         </StackPanel>
      </StackPanel>
   </Border>
  </Grid>

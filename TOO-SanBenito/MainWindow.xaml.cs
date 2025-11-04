@@ -11,71 +11,98 @@ namespace TOO_SanBenito
     public partial class MainWindow : Window
     {
         private DispatcherTimer _timer;
+        private string _userRole;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            // Inicializar con el dashboard
+            _userRole = "Admin"; // Default
+            ConfigurarMenuPorRol();
             NavigateToDashboard();
-
-            // Iniciar reloj en el footer
             StartClock();
         }
 
-        public MainWindow(string username) : this()
+        public MainWindow(string username, string role) : this()
         {
-            // Constructor que recibe el nombre de usuario desde login
+            _userRole = role;
             TxtUserName.Text = username;
-            TxtUsuarioActual.Text = $"Usuario: {username}";
+            TxtUsuarioActual.Text = $"{role}: {username}";
+
+            ConfigurarMenuPorRol();
+            NavigateToDashboard();
+        }
+
+        private void ConfigurarMenuPorRol()
+        {
+            if (_userRole == "Vendedor")
+            {
+                // Vendedor solo puede ver: Dashboard de ventas y Ventas
+                BtnProductos.Visibility = Visibility.Collapsed;
+                BtnReportes.Visibility = Visibility.Collapsed;
+                BtnConfiguracion.Visibility = Visibility.Collapsed;
+            }
+            else // Admin
+            {
+                // Admin puede ver todo
+                BtnProductos.Visibility = Visibility.Visible;
+                BtnReportes.Visibility = Visibility.Visible;
+                BtnConfiguracion.Visibility = Visibility.Visible;
+            }
         }
 
         private void NavigateToDashboard()
         {
-            MainFrame.Navigate(new UI.Page1());
-            TxtPageTitle.Text = "Dashboard";
+            if (_userRole == "Vendedor")
+            {
+                MainFrame.Navigate(new UI.DashboardVendedor());
+                TxtPageTitle.Text = "Mis Ventas";
+            }
+            else
+            {
+                MainFrame.Navigate(new UI.Page1());
+                TxtPageTitle.Text = "Dashboard";
+            }
             HighlightButton(BtnDashboard);
         }
 
         private void BtnDashboard_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new UI.Page1());
-            TxtPageTitle.Text = "Dashboard";
-            HighlightButton(BtnDashboard);
+            NavigateToDashboard();
         }
 
-        private void BtnUsuarios_Click(object sender, RoutedEventArgs e)
+        private void BtnProductos_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Crear página de usuarios
-            // MainFrame.Navigate(new UI.UsuariosPage());
-            TxtPageTitle.Text = "Usuarios";
+            MainFrame.Navigate(new UI.Productos());
+            TxtPageTitle.Text = "Productos";
             HighlightButton(BtnProductos);
-            MessageBox.Show("Página de Usuarios en construcción", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BtnVentas_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new UI.Ventas());
+            TxtPageTitle.Text = "Ventas";
+            HighlightButton(BtnVentas);
         }
 
         private void BtnReportes_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Crear página de reportes
-            // MainFrame.Navigate(new UI.ReportesPage());
+            MainFrame.Navigate(new UI.Reportes());
             TxtPageTitle.Text = "Reportes";
             HighlightButton(BtnReportes);
-            MessageBox.Show("Página de Reportes en construcción", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BtnConfiguracion_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Crear página de configuración
-            // MainFrame.Navigate(new UI.ConfiguracionPage());
-            TxtPageTitle.Text = "Configuración";
+            MainFrame.Navigate(new UI.Configuracion());
+            TxtPageTitle.Text = "ConfiguraciÃ³n";
             HighlightButton(BtnConfiguracion);
-            MessageBox.Show("Página de Configuración en construcción", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BtnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-              "¿Estás seguro que deseas cerrar sesión?",
-              "Cerrar Sesión",
+              "ï¿½Estï¿½s seguro que deseas cerrar sesiï¿½n?",
+              "Cerrar Sesiï¿½n",
                  MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
@@ -93,10 +120,11 @@ namespace TOO_SanBenito
             // Resetear todos los botones
             BtnDashboard.Background = System.Windows.Media.Brushes.Transparent;
             BtnProductos.Background = System.Windows.Media.Brushes.Transparent;
+            BtnVentas.Background = System.Windows.Media.Brushes.Transparent;
             BtnReportes.Background = System.Windows.Media.Brushes.Transparent;
             BtnConfiguracion.Background = System.Windows.Media.Brushes.Transparent;
 
-            // Resaltar el botón activo
+            // Resaltar el botÃ³n activo
             activeButton.Background = new System.Windows.Media.SolidColorBrush(
           System.Windows.Media.Color.FromRgb(51, 65, 85)); // #334155
         }

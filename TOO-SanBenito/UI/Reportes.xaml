@@ -1,0 +1,269 @@
+<Page x:Class="TOO_SanBenito.UI.Reportes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Reportes">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1E293B"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#10B981"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#F59E0B"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#EF4444"/>
+
+        <Style x:Key="TabStyle" TargetType="TabItem">
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#F8FAFC">
+        <TabControl Margin="20" Background="White">
+            <!-- Tab 1: Ventas por Tipo de Medicamento -->
+            <TabItem Header="📊 Ventas por Tipo" Style="{StaticResource TabStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30">
+                    <StackPanel>
+                        <TextBlock Text="Ventas por Tipo de Medicamento"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"/>
+                        <TextBlock Text="Análisis de productos vendidos clasificados por tipo de medicamento"
+                                   FontSize="13"
+                                   Foreground="#64748B"
+                                   Margin="0,0,0,30"/>
+
+                        <!-- Resumen en cards -->
+                        <Grid Margin="0,0,0,30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="#DBEAFE" CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                                <StackPanel>
+                                    <TextBlock Text="💊" FontSize="32" Margin="0,0,0,8"/>
+                                    <TextBlock Text="Venta Libre" FontSize="14" Foreground="#1E3A8A" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtVentaLibre" Text="0 unidades" FontSize="20" FontWeight="Bold" Foreground="#1E40AF" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="#D1FAE5" CornerRadius="8" Padding="20" Margin="5,0">
+                                <StackPanel>
+                                    <TextBlock Text="📋" FontSize="32" Margin="0,0,0,8"/>
+                                    <TextBlock Text="Con Receta" FontSize="14" Foreground="#065F46" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtConReceta" Text="0 unidades" FontSize="20" FontWeight="Bold" Foreground="#047857" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="#FEF3C7" CornerRadius="8" Padding="20" Margin="10,0,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="⚠" FontSize="32" Margin="0,0,0,8"/>
+                                    <TextBlock Text="Controlados" FontSize="14" Foreground="#92400E" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtControlados" Text="0 unidades" FontSize="20" FontWeight="Bold" Foreground="#B45309" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <!-- Tabla detallada -->
+                        <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8">
+                            <DataGrid x:Name="DgVentasPorTipo"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="True"
+                                      GridLinesVisibility="None"
+                                      HeadersVisibility="Column"
+                                      Background="White"
+                                      RowHeight="40">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Categoría" Binding="{Binding Categoria}" Width="*" FontWeight="SemiBold"/>
+                                    <DataGridTextColumn Header="Unidades Vendidas" Binding="{Binding Cantidad}" Width="150"/>
+                                    <DataGridTextColumn Header="Porcentaje" Binding="{Binding Porcentaje}" Width="120"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Tab 2: Horarios Pico -->
+            <TabItem Header="🕐 Horarios Pico" Style="{StaticResource TabStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30">
+                    <StackPanel>
+                        <TextBlock Text="Horarios Pico de Ventas"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"/>
+                        <TextBlock Text="Análisis de las horas con mayor volumen de ventas"
+                                   FontSize="13"
+                                   Foreground="#64748B"
+                                   Margin="0,0,0,30"/>
+
+                        <!-- Estadísticas -->
+                        <Grid Margin="0,0,0,25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="#DBEAFE" CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                                <StackPanel>
+                                    <TextBlock Text="⏰ Hora Pico" FontSize="14" Foreground="#1E3A8A" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtHoraPico" Text="--:--" FontSize="28" FontWeight="Bold" Foreground="#1E40AF" Margin="0,4,0,0"/>
+                                    <TextBlock x:Name="TxtVentasHoraPico" Text="0 ventas" FontSize="12" Foreground="#3B82F6" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="#FEF3C7" CornerRadius="8" Padding="20" Margin="10,0,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="🕐 Hora Más Tranquila" FontSize="14" Foreground="#92400E" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtHoraTranquila" Text="--:--" FontSize="28" FontWeight="Bold" Foreground="#B45309" Margin="0,4,0,0"/>
+                                    <TextBlock x:Name="TxtVentasHoraTranquila" Text="0 ventas" FontSize="12" Foreground="#D97706" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <!-- Gráfico de barras -->
+                        <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="20">
+                            <StackPanel>
+                                <TextBlock Text="Distribución de Ventas por Hora"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,20"/>
+
+                                <Canvas x:Name="CanvasGrafico" Height="300" Background="#F8FAFC"/>
+
+                                <TextBlock Text="Horario de atención: 8:00 AM - 8:00 PM"
+                                           FontSize="11"
+                                           Foreground="#64748B"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Tab 3: Stock de Productos -->
+            <TabItem Header="📦 Stock de Productos" Style="{StaticResource TabStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30">
+                    <StackPanel>
+                        <TextBlock Text="Estado del Inventario"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"/>
+                        <TextBlock Text="Control de stock y alertas de productos"
+                                   FontSize="13"
+                                   Foreground="#64748B"
+                                   Margin="0,0,0,30"/>
+
+                        <!-- Resumen -->
+                        <Grid Margin="0,0,0,25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="#D1FAE5" CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                                <StackPanel>
+                                    <TextBlock Text="✓" FontSize="32" Margin="0,0,0,8" Foreground="#059669"/>
+                                    <TextBlock Text="Stock Normal" FontSize="14" Foreground="#065F46" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtStockNormal" Text="0 productos" FontSize="20" FontWeight="Bold" Foreground="#047857" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="#FEF3C7" CornerRadius="8" Padding="20" Margin="5,0">
+                                <StackPanel>
+                                    <TextBlock Text="⚠" FontSize="32" Margin="0,0,0,8" Foreground="#D97706"/>
+                                    <TextBlock Text="Stock Bajo" FontSize="14" Foreground="#92400E" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtStockBajoCount" Text="0 productos" FontSize="20" FontWeight="Bold" Foreground="#B45309" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="#DBEAFE" CornerRadius="8" Padding="20" Margin="10,0,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="💰" FontSize="32" Margin="0,0,0,8"/>
+                                    <TextBlock Text="Valor Total" FontSize="14" Foreground="#1E3A8A" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TxtValorTotal" Text="$0.00" FontSize="20" FontWeight="Bold" Foreground="#1E40AF" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <!-- Tabla de stock -->
+                        <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8">
+                            <DataGrid x:Name="DgStock"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="True"
+                                      GridLinesVisibility="None"
+                                      HeadersVisibility="Column"
+                                      Background="White"
+                                      RowHeight="45">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*" MinWidth="200"/>
+                                    <DataGridTextColumn Header="Categoría" Binding="{Binding CategoriaNombre}" Width="150"/>
+                                    <DataGridTextColumn Header="Stock Actual" Binding="{Binding Stock}" Width="120"/>
+                                    <DataGridTextColumn Header="Precio Unit." Binding="{Binding Precio, StringFormat=C2}" Width="120"/>
+                                    <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C2}" Width="130"/>
+
+                                    <DataGridTemplateColumn Header="Estado" Width="140">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Border CornerRadius="12" Padding="10,5" HorizontalAlignment="Center">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding StockBajo}" Value="True">
+                                                                    <Setter Property="Background" Value="#FEE2E2"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding StockBajo}" Value="False">
+                                                                    <Setter Property="Background" Value="#D1FAE5"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <TextBlock FontSize="11" FontWeight="SemiBold">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding StockBajo}" Value="True">
+                                                                        <Setter Property="Text" Value="⚠ CRÍTICO"/>
+                                                                        <Setter Property="Foreground" Value="#991B1B"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding StockBajo}" Value="False">
+                                                                        <Setter Property="Text" Value="✓ NORMAL"/>
+                                                                        <Setter Property="Foreground" Value="#065F46"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Border>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#F8FAFC"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                            </DataGrid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

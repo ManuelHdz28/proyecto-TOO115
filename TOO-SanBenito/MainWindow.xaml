@@ -95,6 +95,15 @@
 						</StackPanel>
 					</Button>
 
+					<Button x:Name="BtnVentas"
+			 Style="{StaticResource MenuButtonStyle}"
+				Click="BtnVentas_Click">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#128722;" FontSize="18" Margin="0,0,10,0"/>
+							<TextBlock VerticalAlignment="Center" Text="Ventas"/>
+						</StackPanel>
+					</Button>
+
 					<Button x:Name="BtnReportes"
 				   Style="{StaticResource MenuButtonStyle}"
 						 Click="BtnReportes_Click">
