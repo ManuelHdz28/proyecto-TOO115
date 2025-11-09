@@ -12,6 +12,19 @@
         <SolidColorBrush x:Key="SecondaryBrush" Color="#1E293B"/>
         <SolidColorBrush x:Key="DangerBrush" Color="#EF4444"/>
         <SolidColorBrush x:Key="SuccessBrush" Color="#10B981"/>
+
+        <Style x:Key="CarritoQtyButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+        </Style>
     </Page.Resources>
 
     <Grid Background="#F8FAFC">

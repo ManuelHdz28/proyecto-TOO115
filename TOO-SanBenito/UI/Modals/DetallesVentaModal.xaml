@@ -1,0 +1,72 @@
+﻿<Window x:Class="TOO_SanBenito.UI.Modals.DetallesVentaModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalle de Venta"
+        Width="550"
+        Height="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="#F8FAFC">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20">
+            <TextBlock x:Name="TxtTituloModal"
+                       Text="Detalle de Venta #XXX"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+        </Border>
+
+        <!-- Contenido (DataGrid) -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
+            <StackPanel>
+                <DataGrid x:Name="DgDetalles"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          GridLinesVisibility="Horizontal"
+                          HeadersVisibility="Column"
+                          Background="White"
+                          BorderThickness="1"
+                          BorderBrush="#E2E8F0"
+                          RowHeight="30">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="60"/>
+                        <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
+                        <DataGridTextColumn Header="Precio Unit." Binding="{Binding PrecioUnitario, StringFormat=C2}" Width="100"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=C2}" Width="100" FontWeight="SemiBold"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Pie de página (Total y botón cerrar) -->
+        <Border Grid.Row="2" Background="White" Padding="20" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0">
+            <StackPanel>
+                <Grid Margin="0,0,0,15">
+                    <TextBlock Text="TOTAL DE VENTA:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="TxtTotalVenta" Text="$0.00" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right"/>
+                </Grid>
+                <Button Content="Cerrar"
+                        Click="BtnCerrar_Click"
+                        Padding="15,8"
+                        Background="#94A3B8"
+                        Foreground="White"
+                        BorderThickness="0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
